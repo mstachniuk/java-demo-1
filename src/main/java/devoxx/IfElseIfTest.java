@@ -2,21 +2,23 @@ package devoxx;
 
 class IfElseIfTest {
   public static void main(String[] args) {
-    if (true) {
+    boolean a = System.getProperty("x");
+    boolean b = System.getProperty("y");
+    if (a) {
       System.out.println("x");
-    } else if (true) {
+    } else if (b) {
       throw new RuntimeException("boom");
     }
 
-    if (true) {
+    if (a) {
       System.out.println("x");
-    } else if (true) {
+    } else if (b) {
       System.out.println("y");
     }
 
-        if (true) {
+    if (a) {
       System.out.println("x");
-    } else if (true) {
+    } else if (b) {
       System.out.println("y");
     } else {
       System.out.println("z");
