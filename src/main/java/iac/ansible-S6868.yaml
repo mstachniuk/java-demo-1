@@ -1,0 +1,46 @@
+---
+- name: K8s command execution tasks
+  hosts: all
+  tasks:
+    - name: Role Example
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: rbac.authorization.k8s.io/v1
+          kind: Role
+          metadata:
+            namespace: default
+            name: noncompliant-role
+          rules:
+            - apiGroups: [ "" ]
+              resources: [ "pods/exec" ] # Noncompliant
+              verbs: [ "create" ]
+
+            - apiGroups: [ "" ]
+              resources: [ "*" ] # Noncompliant
+              verbs: [ "create" ]
+
+            - apiGroups: [ "" ]
+              resources: [ "services" ] # Compliant
+              verbs: [ "create" ]
+    - name: ClusterRole Example
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRole
+          metadata:
+            namespace: default
+            name: noncompliant-role
+          rules:
+            - apiGroups: [ "" ]
+              resources: [ "*" ] # Noncompliant
+              verbs: [ "*" ]
+
+            - apiGroups: [ "" ]
+              resources: [ "pods/exec" ] # Noncompliant
+              verbs: [ "*" ]
+
+            - apiGroups: [ "" ]
+              resources: [ "pods/exec" ] # Compliant
+              verbs: [ "get" ]
